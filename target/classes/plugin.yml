@@ -1,0 +1,5 @@
+name: AnvilKeepLevels
+version: 1.0.0
+main: dev.orbatron.anvilkeeplevels.AnvilKeepLevels
+api-version: '1.21'
+softdepend: [AdvancedEnchantments]

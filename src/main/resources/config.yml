@@ -1,0 +1,2 @@
+# If true, conflicting enchants (e.g. all four protections) can be applied together.
+allow-conflicts: false
