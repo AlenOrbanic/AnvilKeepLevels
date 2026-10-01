@@ -1,6 +1,6 @@
 # AnvilKeepLevels
 
-A small Paper plugin that makes anvils apply enchantments **at the exact level they have**, while making sure players can **never level an enchantment up by combining**.
+A small Paper plugin that makes anvils apply enchantments **at the exact level they have**, while making sure players can **never level an enchantment up by combining books**.
 
 It is meant to be used alongside the [Enchantment Extractor](https://modrinth.com/datapack/enchantment-extractor) datapack, but it does not require it and works with any enchanted book or item.
 
