@@ -49,8 +49,16 @@ public class AnvilKeepLevels extends JavaPlugin implements Listener {
 
             Integer existing = desired.get(ench);
             if (existing != null) {
-                // Same enchant on both sides: keep the higher level, never add one.
-                desired.put(ench, Math.max(existing, level));
+                // Same enchant on both sides, vanilla rules:
+                //  - equal levels below the enchant's max -> +1 (e.g. Health 1 + 1 = 2)
+                //  - equal levels at/above the max -> stay as is (Health 5 + 5 = 5)
+                //  - different levels -> keep the higher one
+                // Over-max levels (e.g. Unbreaking 10 from commands) are never lowered.
+                int merged = Math.max(existing, level);
+                if (existing == level && level < ench.getMaxLevel()) {
+                    merged = level + 1;
+                }
+                desired.put(ench, merged);
                 continue;
             }
 

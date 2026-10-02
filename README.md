@@ -15,7 +15,7 @@ Raising those caps would fix the clamping, but it creates a new problem: with hi
 AnvilKeepLevels solves both at once:
 
 - A book's enchantments are applied at the book's levels, with no cap.
-- If both slots have the same enchantment, the result takes the **higher** level and never adds one.
+- If both slots have the same enchantment, vanilla rules apply: equal levels below the enchantment's max go up by one (Health 1 + 1 = 2), equal levels at the max stay at the max (Health 5 + 5 = 5), and different levels keep the higher one.
 
 ## What it does
 
@@ -24,7 +24,7 @@ The plugin listens to `PrepareAnvilEvent` at `HIGHEST` priority, so it runs afte
 1. Does nothing if the left, right or result slot is empty, or if the right item has no vanilla enchantments (so plain repairs and renames are left alone).
 2. Starts from the left item's enchantments.
 3. For each enchantment on the right item:
-   - If the left item already has it, the result keeps the higher of the two levels.
+   - If the left item already has it: equal levels below the enchantment's max level give +1, otherwise the result keeps the higher of the two levels. The max level comes from the enchantment itself, so datapack enchantments use their own `max_level`.
    - Otherwise it is applied at the right item's exact level, as long as it fits the item and (unless conflicts are allowed) does not conflict with an enchantment already chosen. Enchantments that fail those checks are skipped silently.
 4. Rewrites the vanilla enchantments on the preview result with the chosen ones.
 
@@ -67,7 +67,7 @@ mvn package -Daether.remoteRepositoryFilter.prefixes=false
 
 ## Things to know
 
-- **It also removes normal vanilla leveling.** Two Sharpness 4 books will no longer make Sharpness 5, for any player.
+- **Combining never goes past the enchantment's max level.** Two Sharpness 5 books stay at Sharpness 5. Books that already carry over-max levels (from commands or the extractor) keep them and are never lowered.
 - **There is no level cap.** Whatever level a book carries is applied, so the limit is whoever can obtain the book.
 - **The anvil cost is not recalculated.** It stays whatever vanilla or the other anvil plugin computed.
 - **It does not touch** enchanting tables, loot, villager trades, grindstones, or items players already own.
